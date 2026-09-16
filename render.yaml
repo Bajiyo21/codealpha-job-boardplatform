@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: careernest-api
+    env: python
+
+    buildCommand: "./build.sh"
+
+    startCommand: "gunicorn careernest.wsgi:application"
+
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: careernest.settings
+
+      - key: SECRET_KEY
+        generateValue: true
+
+      - key: WEB_CONCURRENCY
+        value: 4
