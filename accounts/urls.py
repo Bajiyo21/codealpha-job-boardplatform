@@ -1,21 +1,35 @@
 from django.urls import path
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
+from .views import (
+    RegisterView,
+    LoginView,
+    ProfileView,
+    CandidateProfileCreateView,
+    CandidateProfileView,
+    CandidateProfileUpdateView,
 )
 
-from .views import RegisterView, ProfileView
-
 urlpatterns = [
-    # Register
+    # Authentication
     path("register/", RegisterView.as_view(), name="register"),
+    path("login/", LoginView.as_view(), name="login"),
 
-    # Login
-    path("login/", TokenObtainPairView.as_view(), name="login"),
-
-    # Refresh Token
-    path("refresh/", TokenRefreshView.as_view(), name="refresh"),
-
-    # Logged-in user profile
+    # User Profile
     path("profile/", ProfileView.as_view(), name="profile"),
+
+    # Candidate Profile
+    path(
+        "candidate/profile/create/",
+        CandidateProfileCreateView.as_view(),
+        name="candidate-profile-create",
+    ),
+    path(
+        "candidate/profile/",
+        CandidateProfileView.as_view(),
+        name="candidate-profile",
+    ),
+    path(
+        "candidate/profile/update/",
+        CandidateProfileUpdateView.as_view(),
+        name="candidate-profile-update",
+    ),
 ]
